@@ -1,1 +1,12 @@
-<p>sidebar works!</p>
+<!-- src/app/layout/components/sidebar/sidebar.component.html -->
+<mat-nav-list>
+    <!-- <h2 matSubheader>Menú</h2> -->
+    <a mat-list-item routerLink="/clients" routerLinkActive="active-link">
+        <mat-icon matListItemIcon>people</mat-icon>
+        <span matListItemTitle>Clientes</span>
+    </a>
+    <a mat-list-item routerLink="/dashboard" routerLinkActive="active-link">
+        <mat-icon matListItemIcon>dashboard</mat-icon>
+        <span matListItemTitle>Dashboard</span>
+    </a>
+</mat-nav-list>
