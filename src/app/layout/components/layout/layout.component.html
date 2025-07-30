@@ -1,1 +1,10 @@
-<p>layout works!</p>
+<div class="app-container">
+    <app-header></app-header>
+    <div class="main-content">
+        <app-sidebar></app-sidebar>
+        <main class="router-content">
+            <!-- Aquí es donde Angular cargará nuestras páginas (lista de clientes, etc.) -->
+            <router-outlet></router-outlet>
+        </main>
+    </div>
+</div>
