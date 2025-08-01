@@ -1,8 +1,10 @@
 <mat-card>
+
     <mat-card-header>
         <mat-card-title>Lista de Clientes</mat-card-title>
         <mat-card-subtitle>Gestiona tus clientes existentes</mat-card-subtitle>
     </mat-card-header>
+
     <mat-card-content>
         <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
@@ -34,4 +36,12 @@
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
     </mat-card-content>
+
+    <mat-card-actions align="end">
+        <a mat-raised-button color="primary" routerLink="new">
+            <mat-icon>add</mat-icon>
+            Añadir Cliente
+        </a>
+    </mat-card-actions>
+
 </mat-card>
