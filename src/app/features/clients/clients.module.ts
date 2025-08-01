@@ -5,11 +5,13 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ClientsRoutingModule } from './clients-routing.module';
 import { ClientListComponent } from './pages/client-list/client-list.component';
 import { MaterialModule } from '../../shared/material.module';
+import { ClientFormComponent } from './pages/client-form/client-form.component';
 
 
 @NgModule({
   declarations: [
-    ClientListComponent
+    ClientListComponent,
+    ClientFormComponent
   ],
   imports: [
     CommonModule,

@@ -7,8 +7,16 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
+
+// Módulos de Angular Material que usaremos para el list
 import { MatCardModule } from '@angular/material/card';
 import { MatTableModule } from '@angular/material/table';
+
+// Módulos de Angular Material que usaremos para Formularios
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+
+
 
 @NgModule({
   exports: [
@@ -18,7 +26,9 @@ import { MatTableModule } from '@angular/material/table';
     MatIconModule,
     MatListModule,
     MatCardModule,
-    MatTableModule
+    MatTableModule,
+    MatFormFieldModule,
+    MatInputModule
   ]
 })
 export class MaterialModule { }

@@ -1,0 +1,60 @@
+<!-- src/app/features/clients/pages/client-form/client-form.component.html -->
+<mat-card>
+    <mat-card-header>
+        <mat-card-title>Nuevo Cliente</mat-card-title>
+        <mat-card-subtitle>Complete los datos del nuevo cliente</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+        <!-- Conectamos el formulario con la etiqueta <form> -->
+        <form [formGroup]="clientForm" (ngSubmit)="onSubmit()">
+        
+        <div class="form-container">
+            <!-- CAMPO NOMBRE -->
+            <mat-form-field appearance="outline">
+            <mat-label>Nombre Completo</mat-label>
+            <input matInput placeholder="Ej: Juan Pérez" formControlName="name">
+            <mat-error *ngIf="clientForm.get('name')?.hasError('required')">
+                El nombre es requerido.
+            </mat-error>
+            <mat-error *ngIf="clientForm.get('name')?.hasError('minlength')">
+                El nombre debe tener al menos 3 caracteres.
+            </mat-error>
+            </mat-form-field>
+
+            <!-- CAMPO EMPRESA -->
+            <mat-form-field appearance="outline">
+            <mat-label>Empresa</mat-label>
+            <input matInput placeholder="Ej: Tech Solutions" formControlName="company">
+            <mat-error *ngIf="clientForm.get('company')?.hasError('required')">
+                El nombre de la empresa es requerido.
+            </mat-error>
+            </mat-form-field>
+
+            <!-- CAMPO EMAIL -->
+            <mat-form-field appearance="outline">
+            <mat-label>Correo Electrónico</mat-label>
+            <input matInput type="email" placeholder="Ej: juan.perez@tech.com" formControlName="email">
+            <mat-error *ngIf="clientForm.get('email')?.hasError('required')">
+                El correo es requerido.
+            </mat-error>
+            <mat-error *ngIf="clientForm.get('email')?.hasError('email')">
+                El formato del correo no es válido.
+            </mat-error>
+            </mat-form-field>
+
+            <!-- CAMPO TELÉFONO -->
+            <mat-form-field appearance="outline">
+            <mat-label>Teléfono (Opcional)</mat-label>
+            <input matInput type="tel" placeholder="Ej: +56 9 1234 5678" formControlName="phone">
+            </mat-form-field>
+        </div>
+
+        </form>
+    </mat-card-content>
+
+    <mat-card-actions align="end">
+        <button mat-stroked-button (click)="onCancel()">Cancelar</button>
+        <button mat-raised-button color="primary" (click)="onSubmit()" [disabled]="clientForm.invalid">Guardar Cliente</button>
+    </mat-card-actions>
+</mat-card>
