@@ -1,5 +1,5 @@
 export interface Client {
-    id?: number; // el id sera opcional al crear pero sera requerido al editar, lo generara mongoDB 
+    id?: string; // el id sera opcional al crear pero sera requerido al editar, lo generara mongoDB 
     name: string;
     company: string;
     email: string;
