@@ -1,10 +1,13 @@
-const express = require('express');
-import type { Express, Request, Response } from 'express'; // Los tipos se mantienen
-const cors = require('cors');
-const dotenv = require('dotenv');
+import express, { type Express, type Request, type Response } from 'express';
+import cors from 'cors';
+import dotenv from 'dotenv';
+import connectDB from './config/database';
 
 // Carga las variables de entorno del fichero .env
 dotenv.config();
+
+// Conecta a la base de datos
+connectDB();
 
 const app: Express = express();
 const port = process.env.PORT || 3000;
