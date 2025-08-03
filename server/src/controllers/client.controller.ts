@@ -1,4 +1,4 @@
-import type { Request, Response } from 'express';
+import { type Request, type Response } from 'express';
 import ClientModel from '../models/Client-model';
 
 export const getClients = async (req: Request, res: Response) => {
