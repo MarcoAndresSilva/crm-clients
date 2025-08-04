@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { provideHttpClient } from '@angular/common/http'; 
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -12,9 +14,12 @@ import { LayoutModule } from './layout/layout.module';
   imports: [ // Aquí se importan OTROS MÓDULOS que necesitemos.
     BrowserModule,
     AppRoutingModule, 
-    LayoutModule 
+    BrowserAnimationsModule,
+    LayoutModule
   ],
-  providers: [], // Es el lugar para registrar servicios que estarán disponibles para toda la aplicación.
+  providers: [
+        provideHttpClient()
+  ], // Es el lugar para registrar servicios que estarán disponibles para toda la aplicación.
   bootstrap: [AppComponent] // Aquí se indica con cual componente se inicia en la APP.
 })
 export class AppModule { }
