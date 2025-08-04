@@ -1,0 +1,11 @@
+/* client-list.component.scss */
+.card-content {
+    min-height: 300px; // Evita que la tarjeta "salte" de tamaño al cargar
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.spinner-container, .error-container, .empty-state {
+    text-align: center;
+}
