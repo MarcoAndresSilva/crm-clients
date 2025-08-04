@@ -59,5 +59,7 @@ constructor( private http: HttpClient) { } // inyectamos HttpClient
     return throwError(() => error('Algo salio mal, porfavor intentelo de nuevo mas tarde'));
   }
 
+  // TODO : Mejorar el manejo de errores
+
 }
     
