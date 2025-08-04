@@ -1,55 +1,63 @@
+import { Handler } from './../../../../server/node_modules/arg/index.d';
 import { Injectable } from '@angular/core';
-import { Observable, of, delay, tap } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { Observable, catchError, throwError } from 'rxjs';
 import { Client } from '../models/client.model';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ClientService {
 
-  private clients: Client[] = [
-    {id: '64a5f3e4c3d4e5a6b7c8d9e0', name: 'Juan Pérez', company: 'Tech Solutions', email: 'juan.perez@tech.com', phone: '+56911111111', createdAt: new Date()},
-    {id: '64a5f3e4c3d4e5a6b7c8d9e1', name: 'Ana Gómez', company: 'Innovate Corp', email: 'ana.gomez@innovate.com', createdAt: new Date()},
-    {id: '64a5f3e4c3d4e5a6b7c8d9e2', name: 'Carlos Sánchez', company: 'Marketing Digital', email: 'carlos@marketing.cl', phone: '+56933333333', createdAt: new Date()},
-    {id: '64a5f3e4c3d4e5a6b7c8d9e3', name: 'Laura Rodríguez', company: 'Tech Solutions', email: 'laura.rodriguez@tech.com', createdAt: new Date()},
-    {id: '64a5f3e4c3d4e5a6b7c8d9e4', name: 'Pedro Rodríguez', company: 'Tech Solutions', email: 'pedro.rodriguez@tech.com', createdAt: new Date()}
-  ];
+  private apiUrl = `${environment.apiUrl}/api/clients`; // defino la url base de la API de clientes
 
-constructor() { }
+constructor( private http: HttpClient) { } // inyectamos HttpClient
 
   // GET /api/client
   getClients(): Observable<Client[]> {
-    console.log('Servicio: Obteniendo clientes...');
-    
-    return of(this.clients).pipe( // of() convierte el array en un Observable
-      delay(500),
-      tap(clients => console.log('Servicio: Clientes obtenidos', clients)) // tap() ejecuta una función sin modificar el Observable
+    console.log('Servicio: Obteniendo clientes desde el backend...');
+    return this.http.get<Client[]>(this.apiUrl).pipe(
+      catchError(this.handleError)
     );
   }
 
   // POST /api/clients
   addClient(client: Client): Observable<Client> {
-    console.log('Servicio: Agregando cliente...', client);
-    
-    const newClient: Client = {
-      ...client, // copia las propiedades del objeto client y las agrega al nuevo objeto
-      id: `64a5f3e4c3d4e5a6b7c8d9e3${this.clients.length + 3}`, // id unico y falso
-      createdAt: new Date()
-    };
-
-    this.clients.push(newClient);
-
-    return of(newClient).pipe(
-      delay(500) // simula la latencia de una petición HTTP
+    console.log('Servicio: Obteniendo clientes desde el backend...');
+    return this.http.post<Client>(this.apiUrl, client).pipe(
+      catchError(this.handleError)
     );
   }
 
-  //TODO  
-  // getClientById(id: string): Observable<Client> { ... }
-  // updateClient(id: string, client: Client): Observable<Client> { ... }
-  // deleteClient(id: string): Observable<any> { ... }
+  // GET /api/clients/:id
+  getClientById(id: string): Observable<Client> { 
+    console.log('Servicio: Obteniendo clientes desde el backend...');
+    return this.http.get<Client>(`${this.apiUrl}/${id}`).pipe(
+      catchError(this.handleError)
+    );
+  }
 
+  // PUT /api/clients/:id 
+  updateClient(id: string, client: Client): Observable<Client> { 
+    console.log('Servicio: Actualizando clientes desde el backend...');
+    return this.http.put<Client>(`${this.apiUrl}/${id}`, client).pipe(
+      catchError(this.handleError)
+    );
+  }
 
+  // DELETE /api/clients/:id
+  deleteClient(id: string): Observable<any> {
+    console.log('Servicio: Eliminando clientes desde el backend...');
+    return this.http.delete<any>(`${this.apiUrl}/${id}`).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  private handleError(error: any) {
+    console.error('Servicio: Error al obtener clientes', error);
+    return throwError(() => error('Algo salio mal, porfavor intentelo de nuevo mas tarde'));
+  }
 
 }
     
