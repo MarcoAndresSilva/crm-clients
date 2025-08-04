@@ -28,7 +28,7 @@ export class ClientListComponent {
     this.error = null;
 
     this.clientService.getClients().subscribe({
-      next: (clients) => {
+      next: (clients) => { // usa next para manejar la respuesta exitosa
         this.clients = clients;
         this.isLoading = false;
       },
