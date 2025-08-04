@@ -15,7 +15,7 @@ import { MatTableModule } from '@angular/material/table';
 // Módulos de Angular Material que usaremos para Formularios
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 
 @NgModule({
@@ -28,7 +28,8 @@ import { MatInputModule } from '@angular/material/input';
     MatCardModule,
     MatTableModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatProgressSpinnerModule
   ]
 })
 export class MaterialModule { }
