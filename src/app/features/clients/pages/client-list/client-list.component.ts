@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
 
 import { Client } from '../../../../core/models/client.model';
 import { ClientService } from '../../../../core/services/client.service';
@@ -12,14 +11,33 @@ import { ClientService } from '../../../../core/services/client.service';
 })
 export class ClientListComponent {
 
-  clients$!: Observable<Client[]>; // la funete de datos ya no es un array sino un Observable que se obtiene de un servicio y que emite un array de clientes
+  clients: Client[] = []; // Variable para almacenar los clientes obtenidos del servicio
+  isLoading = true;
+  error: string | null = null;
 
   displayedColumns: string[] = [ 'id', 'name', 'company', 'email', 'phone']; //columnas que se mostraran en la tabla 
 
   constructor(private clientService: ClientService) {}
 
   ngOnInit() {
-    this.clients$ = this.clientService.getClients(); // Al iniciar el componente, llamamos al servicio para obtener los clientes.
+    this.loadClients();
+  }
+
+  loadClients(): void {
+    this.isLoading = true;
+    this.error = null;
+
+    this.clientService.getClients().subscribe({
+      next: (clients) => {
+        this.clients = clients;
+        this.isLoading = false;
+      },
+      error: (error) => {
+        this.error = 'Error al obtener los clientes';
+        console.error('Error al obtener los clientes', error);
+        this.isLoading = false;
+      }
+    });
   }
 
 }
