@@ -1,15 +1,20 @@
 // src/routes/client.routes.ts
 import { Router } from 'express';
-import { getClients, createClient} from '../controllers/client.controller';
+import { getClients, createClient, getClientById, updateClient, deleteClient } from '../controllers/client.controller';
 
 const router = Router();
 
 // Definimos la ruta y le asignamos el controlador
-router.get('/', getClients);
-router.post('/', createClient);
-// --- Aquí añadiremos las otras rutas del CRUD ---
-// router.get('/:id', getClientById);
-// router.put('/:id', updateClient);
-// router.delete('/:id', deleteClient);
+
+router.route('/')
+    .get(getClients)
+    .post(createClient);
+
+// Rutas para un cliente específico por ID
+router.route('/:id')
+    .get(getClientById)
+    .put(updateClient)
+    .delete(deleteClient);
+
 
 export default router;
