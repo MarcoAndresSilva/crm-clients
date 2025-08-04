@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
+
 import { ClientService } from '../../../../core/services/client.service';
 
 @Component({
@@ -12,12 +14,14 @@ import { ClientService } from '../../../../core/services/client.service';
 export class ClientFormComponent implements OnInit {
 
   clientForm: FormGroup;
+  isSubmitting = false;
 
-  // inyectamos fombuilder y router paar crear el formulario y navegar
+  // inyectamos fombuilder y router paar crear el formulario y navegar y matsnackbar
   constructor(
       private formBuilder: FormBuilder, 
       private router: Router,
-      private clientService: ClientService
+      private clientService: ClientService,
+      private snackBar: MatSnackBar
     ) {
     this.clientForm = this.formBuilder.group({
       name: ['', [Validators.required, Validators.minLength(3)]],
@@ -33,20 +37,26 @@ export class ClientFormComponent implements OnInit {
   }
 
   onSubmit() {
-    if (this.clientForm.invalid) {
-      this.clientForm.markAllAsTouched();
+    if (this.clientForm.invalid || this.isSubmitting) {
       return;
     }
-    console.log('Formulario válido, enviando datos al servicio:');
+
+    this.isSubmitting = true;
     
     this.clientService.addClient(this.clientForm.value).subscribe({
       next: (newClient) => {
-        console.log('Servicio: Cliente agregado', newClient);
+        this.snackBar.open('Cliente agregado con exito', 'Cerrar', {
+          duration: 3000,
+          panelClass: ['snackbar-success']
+        });
         this.router.navigate(['/clients']);
       },
       error: (error) => {
-        console.error('Servicio: Error al agregar cliente', error);
-      }
+        this.snackBar.open(error.message || 'Error al agregar el cliente', 'Cerrar', {
+          duration: 3000,
+          panelClass: ['snackbar-error']
+        });
+        this.isSubmitting = false;}
     });
   }
 

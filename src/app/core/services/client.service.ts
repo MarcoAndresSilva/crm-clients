@@ -1,7 +1,7 @@
 import { Handler } from './../../../../server/node_modules/arg/index.d';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, catchError, throwError } from 'rxjs';
+import { Observable, catchError, throwError, delay } from 'rxjs';
 import { Client } from '../models/client.model';
 import { environment } from '../../../environments/environment';
 
@@ -18,6 +18,7 @@ constructor( private http: HttpClient) { } // inyectamos HttpClient
   getClients(): Observable<Client[]> {
     console.log('Servicio: Obteniendo clientes desde el backend...');
     return this.http.get<Client[]>(this.apiUrl).pipe(
+      delay(500), // TODO: Eliminar este retardo en producción. Usado solo para probar el spinner.
       catchError(this.handleError)
     );
   }
