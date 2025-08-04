@@ -10,7 +10,7 @@ import { environment } from '../../../environments/environment';
 })
 export class ClientService {
 
-  private apiUrl = `${environment.apiUrl}/api/clients`; // defino la url base de la API de clientes
+  private apiUrl = `${environment.apiUrl}/clients`; // defino la url base de la API de clientes
 
 constructor( private http: HttpClient) { } // inyectamos HttpClient
 
