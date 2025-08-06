@@ -47,13 +47,17 @@ export class ClientFormComponent implements OnInit {
       next: (newClient) => {
         this.snackBar.open('Cliente agregado con exito', 'Cerrar', {
           duration: 3000,
-          panelClass: ['snackbar-success']
+          verticalPosition: 'top',
+          horizontalPosition: 'center',
+          panelClass: ['snackbar-purple']
         });
         this.router.navigate(['/clients']);
       },
       error: (error) => {
         this.snackBar.open(error.message || 'Error al agregar el cliente', 'Cerrar', {
           duration: 3000,
+          verticalPosition: 'top',
+          horizontalPosition: 'center',
           panelClass: ['snackbar-error']
         });
         this.isSubmitting = false;}

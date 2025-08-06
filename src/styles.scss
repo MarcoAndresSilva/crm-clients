@@ -4,12 +4,12 @@
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
-.snackbar-success {
-    background-color: #4CAF50; // Verde
-    color: white;
+.snackbar-purple {
+  background-color: var(--mdc-protected-button-container-color, #673ab7); // Color 'primary' del tema Deeppurple-Amber
+  color: white;
 }
 
 .snackbar-error {
   background-color: #F44336; // Rojo
-    color: white;
+  color: white;
 }
