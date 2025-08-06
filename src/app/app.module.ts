@@ -6,11 +6,10 @@ import { provideHttpClient } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LayoutModule } from './layout/layout.module';
-import { ConfirmDialogComponent } from './shared/components/confirm-dialog/confirm-dialog.component';
 
 @NgModule({
   declarations: [ // Si creas un nuevo componente, ¡debes declararlo aquí para que Angular lo reconozca! Aquí se declaran TODOS los componentes, directivas y pipes de este módulo.
-    AppComponent, ConfirmDialogComponent 
+    AppComponent 
   ],
   imports: [ // Aquí se importan OTROS MÓDULOS que necesitemos.
     BrowserModule,

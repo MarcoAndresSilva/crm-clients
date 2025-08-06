@@ -4,9 +4,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { ClientsRoutingModule } from './clients-routing.module';
 import { ClientListComponent } from './pages/client-list/client-list.component';
-import { MaterialModule } from '../../shared/material.module';
 import { ClientFormComponent } from './pages/client-form/client-form.component';
 
+import { SharedModule } from '../../shared/shared.module';
 @NgModule({
   declarations: [
     ClientListComponent,
@@ -15,8 +15,8 @@ import { ClientFormComponent } from './pages/client-form/client-form.component';
   imports: [
     CommonModule,
     ClientsRoutingModule,
-    MaterialModule,
     ReactiveFormsModule, 
+    SharedModule,
   ],
 })
 export class ClientsModule { }
