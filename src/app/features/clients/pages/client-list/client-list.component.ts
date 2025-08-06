@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { ConfirmDialogComponent, DialogData } from '../../../../shared/components/confirm-dialog/confirm-dialog.component';
 
 import { Client } from '../../../../core/models/client.model';
 import { ClientService } from '../../../../core/services/client.service';
@@ -17,7 +20,11 @@ export class ClientListComponent {
 
   displayedColumns: string[] = [ 'id', 'name', 'company', 'email', 'phone', 'actions']; //columnas que se mostraran en la tabla 
 
-  constructor(private clientService: ClientService) {}
+  constructor(
+    private clientService: ClientService,
+    private snackBar: MatSnackBar,
+    private dialog: MatDialog
+  ) {}
 
   ngOnInit() {
     this.loadClients();
@@ -38,6 +45,48 @@ export class ClientListComponent {
         this.isLoading = false;
       }
     });
+  }
+
+  deleteClient(id: string | undefined): void {
+    if(!id) return; // si no hay un id, no hacemos nada}
+
+    const dialogData: DialogData = {
+      title: 'Eliminar cliente',
+      message: '¿Estás seguro de que deseas eliminar este cliente?'
+    };
+
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '400px',
+      data: dialogData
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.clientService.deleteClient(id).subscribe({
+          next: () => {
+            this.loadClients();
+            this.snackBar.open('Cliente eliminado correctamente', 'Cerrar', {
+              duration: 3000,
+              verticalPosition: 'top',
+              panelClass: ['snackbar-purple']
+            });
+          },
+          error: (error) => {
+            this.snackBar.open('Error al eliminar el cliente', 'Cerrar', {
+              duration: 5000,
+              verticalPosition: 'top',
+              panelClass: ['snackbar-error']
+            });
+            console.error('Error al eliminar el cliente', error);
+          }
+        });
+      }
+    });
+  }
+
+  editClient(id: string | undefined): void {
+    // Lo implementaremos a continuación
+    console.log('Editar cliente con id:', id);
   }
 
 }
