@@ -15,7 +15,7 @@ export class ClientListComponent {
   isLoading = true;
   error: string | null = null;
 
-  displayedColumns: string[] = [ 'id', 'name', 'company', 'email', 'phone']; //columnas que se mostraran en la tabla 
+  displayedColumns: string[] = [ 'id', 'name', 'company', 'email', 'phone', 'actions']; //columnas que se mostraran en la tabla 
 
   constructor(private clientService: ClientService) {}
 
