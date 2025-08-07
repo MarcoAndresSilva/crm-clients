@@ -18,9 +18,11 @@ const port = process.env.PORT || 3000;
 app.use(cors()); // --- Middlewares --- Habilita CORS para permitir peticiones desde el frontend de Angular
 app.use(express.json()); // Permite al servidor entender JSON en el cuerpo de las peticiones (para POST, PUT, etc.)
 
-// Le decimos a la app que todas las rutas definidas en 'clientRoutes'
-// estarán bajo el prefijo '/api/clients'.
+// las rutas definidas en 'clientRoutes' estarán bajo el prefijo '/api/clients'.
 app.use('/api/clients', clientRoutes);
+
+// las rutas definidas en 'authRoutes' estarán bajo el prefijo '/api/auth'.
+app.use('/api/auth', authRoutes);
 
 app.get('/', (req: Request, res: Response) => { // --- Ruta de Prueba ---
     res.send('¡API del CRM funcionando correctamente!');
