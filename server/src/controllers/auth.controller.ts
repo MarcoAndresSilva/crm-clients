@@ -20,7 +20,7 @@ export const registerUser = async (req: Request, res: Response) => {
     try {
         const userExists = await UserModel.findOne({ email });
         if(userExists) {
-            return res.status(400).json({ message: 'El usuario ya existe' });
+            return res.status(409).json({ message: 'El correo electrónico ya esta registrado' });
         }
         const user = await UserModel.create(
             { username, email, password }
@@ -50,13 +50,14 @@ export const loginUser = async (req: Request, res: Response ) => {
                 username: user.username,
                 email: user.email,
                 token: generateToken(user._id!.toString()),
-            })else{
-                res.status(401).json({ message: 'email o contraseña incorrectos' });
-            }
+            });
+        }else{
+            res.status(401).json({ message: 'email o contraseña incorrectos' });
         }
-    } catch(error) { 
+    }catch(error){
         const errorMessage = error instanceof Error ? error.message : 'Error desconocido';
         res.status(500).json({ message: 'Error al iniciar sesión', error: errorMessage });
     }
-} 
+}
+
 

@@ -3,6 +3,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import connectDB from './config/database';
 import clientRoutes from './routes/client.routes';
+import authRoutes from './routes/auth.routes';
 
 
 // Carga las variables de entorno del fichero .env
