@@ -1,4 +1,3 @@
-// src/models/Client.model.ts
 import { Schema, model, Document } from 'mongoose';
 
 // Interfaz que define las propiedades del documento (para TypeScript)
