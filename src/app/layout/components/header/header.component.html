@@ -1,11 +1,31 @@
-<!-- src/app/layout/components/header/header.component.html -->
+<!-- header.component.html -->
 <mat-toolbar color="primary">
+
     <button mat-icon-button (click)="sidenav.toggle()">
         <mat-icon>menu</mat-icon>
     </button>
+
     <span>CRM-Clients</span>
     <span class="spacer"></span>
-    <button mat-icon-button>
-        <mat-icon>person</mat-icon>
-    </button>
+
+    <!-- Usamos el async pipe para obtener el estado del usuario -->
+    <ng-container *ngIf="user$ | async as user; else showLogin">
+        <!-- Si HAY usuario logueado, mostramos su nombre y el botón de logout -->
+        <button mat-button>
+            <mat-icon>person</mat-icon>
+            Hola, {{ user.username }}
+        </button>
+        <button mat-icon-button (click)="onLogout()" aria-label="Cerrar sesión">
+            <mat-icon>logout</mat-icon>
+        </button>
+    </ng-container>
+
+    <!-- Si NO hay usuario, mostramos un botón para ir al login -->
+    <ng-template #showLogin>
+        <a mat-button routerLink="/auth/login">
+            <mat-icon>login</mat-icon>
+            Iniciar Sesión
+        </a>
+    </ng-template>
+
 </mat-toolbar>
