@@ -1,0 +1,24 @@
+@use '@angular/material' as mat;
+
+// Usamos @use para importar los estilos del login y no repetir código.
+// ¡Esto es una práctica muy buena de SCSS!
+@use '../login/login.component.scss' as login-styles;
+
+.register-container {
+  @extend .login-container; // Hereda todos los estilos del contenedor de login
+}
+
+.register-card {
+  @extend .login-card; // Hereda todos los estilos de la tarjeta de login
+}
+
+// Heredamos también los estilos del formulario
+mat-card-content form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+button {
+    width: 100%;
+}
