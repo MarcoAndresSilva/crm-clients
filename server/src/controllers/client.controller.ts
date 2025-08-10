@@ -4,8 +4,23 @@ import ClientModel from '../models/Client-model';
 // @desc    Obtener todos los clientes - @route   GET /api/clients - @access  Public
 export const getClients = async (req: Request, res: Response) => { 
     try {
-        const clients = await ClientModel.find();
-        res.status(200).json(clients);
+        const page = parseInt(req.query.page as string) || 1;
+        const limit = parseInt(req.query.limit as string) || 10;
+
+        const starIndex = (page - 1) * limit;
+
+        const totalClients = await ClientModel.countDocuments();
+
+        const clients = await ClientModel.find()
+        .limit(limit)
+        .skip(starIndex);
+
+        res.status(200).json({
+            data: clients,
+            currentPage: page,
+            totalPages: Math.ceil(totalClients / limit),
+            totalClients: totalClients
+        });
     } catch (error) {
         const errorMessage = error instanceof Error ? error.message : 'Error desconocido';
         res.status(500).json({ message: 'Error al obtener los clientes', error: errorMessage });
