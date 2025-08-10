@@ -33,6 +33,7 @@ export class ClientListComponent {
     private dialog: MatDialog
   ) {}
 
+  //TODO RE¿efactor load clients
   ngOnInit() {
     this.loadClients();
   }
