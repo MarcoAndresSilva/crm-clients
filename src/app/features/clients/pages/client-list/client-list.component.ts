@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ConfirmDialogComponent, DialogData } from '../../../../shared/components/confirm-dialog/confirm-dialog.component';
+import { PageEvent } from '@angular/material/paginator';
 
-import { Client } from '../../../../core/models/client.model';
+import { Client, PaginatedClientsResponse } from '../../../../core/models/client.model';
 import { ClientService } from '../../../../core/services/client.service';
 
 @Component({
@@ -18,7 +20,12 @@ export class ClientListComponent {
   isLoading = true;
   error: string | null = null;
 
-  displayedColumns: string[] = [ 'id', 'name', 'company', 'email', 'phone', 'actions']; //columnas que se mostraran en la tabla 
+  totalClients = 0;
+  pageSize = 5;
+  currentPage = 0;
+  pageSizeOptions = [5, 10, 20];
+
+  displayedColumns: string[] = [ '_id', 'name', 'company', 'email', 'phone', 'actions']; //columnas que se mostraran en la tabla 
 
   constructor(
     private clientService: ClientService,
@@ -34,9 +41,10 @@ export class ClientListComponent {
     this.isLoading = true;
     this.error = null;
 
-    this.clientService.getClients().subscribe({
-      next: (clients) => { // usa next para manejar la respuesta exitosa
-        this.clients = clients;
+    this.clientService.getClients(this.currentPage +  1, this.pageSize).subscribe({
+      next: (response: PaginatedClientsResponse) => { // usa next para manejar la respuesta exitosa
+        this.clients = response.data;
+        this.totalClients = response.totalClients;
         this.isLoading = false;
       },
       error: (error) => {
@@ -46,6 +54,13 @@ export class ClientListComponent {
       }
     });
   }
+
+  onPageChange(event: PageEvent): void {
+    this.currentPage = event.pageIndex;
+    this.pageSize = event.pageSize;
+    this.loadClients();
+  }
+
 
   deleteClient(id: string | undefined): void {
     if(!id) return; // si no hay un id, no hacemos nada}

@@ -7,3 +7,10 @@ export interface Client {
     createdAt?: Date; // la fecha de creacion sera opcional y la generara mongoDB
     updatedAt?: Date; // la fecha de actualizacion sera opcional y la generara mongoDB
 }
+
+export interface PaginatedClientsResponse {
+    data: Client[];
+    currentPage: number;
+    totalPages: number;
+    totalClients: number;
+}

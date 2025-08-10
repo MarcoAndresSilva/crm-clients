@@ -2,7 +2,7 @@ import { Handler } from './../../../../server/node_modules/arg/index.d';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, catchError, throwError, delay } from 'rxjs';
-import { Client } from '../models/client.model';
+import { Client, PaginatedClientsResponse } from '../models/client.model';
 import { environment } from '../../../environments/environment';
 
 @Injectable({
@@ -15,11 +15,15 @@ export class ClientService {
 constructor( private http: HttpClient) { } // inyectamos HttpClient
 
   // GET /api/client
-  getClients(): Observable<Client[]> {
-    console.log('Servicio: Obteniendo clientes desde el backend...');
-    return this.http.get<Client[]>(this.apiUrl).pipe(
-      delay(500), // TODO: Eliminar este retardo en producción. Usado solo para probar el spinner.
-      catchError(this.handleError)
+  getClients(page: number, limit: number): Observable<PaginatedClientsResponse> {
+    console.log(`Servicio: Obteniendo pagina ${page} de clientes desde el backend...`);
+    return this.http.get<PaginatedClientsResponse>(this.apiUrl,{
+      params: {
+        page: page.toString(),
+        limit: limit.toString()
+      }
+    }).pipe(
+        catchError(this.handleError)
     );
   }
 
