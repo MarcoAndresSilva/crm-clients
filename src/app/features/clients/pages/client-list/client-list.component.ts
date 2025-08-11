@@ -1,9 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Router } from '@angular/router';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ConfirmDialogComponent, DialogData } from '../../../../shared/components/confirm-dialog/confirm-dialog.component';
 import { PageEvent } from '@angular/material/paginator';
+
+import { ConfirmDialogComponent, DialogData } from '../../../../shared/components/confirm-dialog/confirm-dialog.component';
 
 import { Client, PaginatedClientsResponse } from '../../../../core/models/client.model';
 import { ClientService } from '../../../../core/services/client.service';
@@ -14,7 +18,7 @@ import { ClientService } from '../../../../core/services/client.service';
   templateUrl: './client-list.component.html',
   styleUrls: ['./client-list.component.scss']
 })
-export class ClientListComponent {
+export class ClientListComponent implements OnInit, OnDestroy {
 
   clients: Client[] = []; // Variable para almacenar los clientes obtenidos del servicio
   isLoading = true;
@@ -25,20 +29,40 @@ export class ClientListComponent {
   currentPage = 0;
   pageSizeOptions = [5, 10, 20];
 
-  displayedColumns: string[] = [ '_id', 'name', 'company', 'email', 'phone', 'actions']; //columnas que se mostraran en la tabla 
+  displayedColumns: string[] = [ 'id', 'name', 'company', 'email', 'phone', 'actions']; //columnas que se mostraran en la tabla 
+
+  private destroy$ = new Subject<void>();
 
   constructor(
     private clientService: ClientService,
     private snackBar: MatSnackBar,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private router: Router
   ) {}
 
-  //TODO RE¿efactor load clients
   ngOnInit() {
+      console.log('ClientListComponent: ngOnInit se ha disparado!');
     this.loadClients();
+
+    this.clientService.clientsUpdated$.
+      pipe(
+        takeUntil(this.destroy$)
+      )
+      .subscribe(() => {
+        console.log('ClientListComponent: Notificación de actualización recibida. Recargando clientes...');
+        this.loadClients();
+      });
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next(); 
+    this.destroy$.complete();
+    console.log('ClientListComponent: Destruido. Suscripciones limpiadas.');
   }
 
   loadClients(): void {
+    console.log('ClientListComponent: loadClients se ha disparado!');
+
     this.isLoading = true;
     this.error = null;
 
@@ -80,12 +104,12 @@ export class ClientListComponent {
       if (result) {
         this.clientService.deleteClient(id).subscribe({
           next: () => {
-            this.loadClients();
             this.snackBar.open('Cliente eliminado correctamente', 'Cerrar', {
               duration: 3000,
               verticalPosition: 'top',
               panelClass: ['snackbar-purple']
             });
+            this.clientService.notifyClientUpdated();
           },
           error: (error) => {
             this.snackBar.open('Error al eliminar el cliente', 'Cerrar', {
@@ -101,8 +125,7 @@ export class ClientListComponent {
   }
 
   editClient(id: string | undefined): void {
-    // Lo implementaremos a continuación
-    console.log('Editar cliente con id:', id);
+    if (!id) return;
+    this.router.navigate(['/clients/edit', id]);
   }
-
 }
