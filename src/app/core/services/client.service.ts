@@ -65,7 +65,7 @@ constructor( private http: HttpClient) { } // inyectamos HttpClient
     );
   }
 
-  notifyClientUpdated(): void {
+  notifyClientsUpdated(): void {
     console.log('Servicio: Notificando clientes actualizados...');
     this._clientsUpdated$.next();
   }

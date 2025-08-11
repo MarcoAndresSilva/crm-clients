@@ -109,7 +109,7 @@ export class ClientListComponent implements OnInit, OnDestroy {
               verticalPosition: 'top',
               panelClass: ['snackbar-purple']
             });
-            this.clientService.notifyClientUpdated();
+            this.clientService.notifyClientsUpdated();
           },
           error: (error) => {
             this.snackBar.open('Error al eliminar el cliente', 'Cerrar', {

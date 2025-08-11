@@ -85,7 +85,7 @@ export class ClientFormComponent implements OnInit {
           horizontalPosition: 'center',
           panelClass: ['snackbar-purple']
         });
-        this.clientService.notifyClientUpdated();
+        this.clientService.notifyClientsUpdated();
         this.router.navigate(['/clients']);
       },
       error: (err) => {

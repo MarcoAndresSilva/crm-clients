@@ -9,3 +9,18 @@
 .spinner-container, .error-container, .empty-state {
     text-align: center;
 }
+
+.table-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column; 
+    align-items: stretch;
+}
+
+mat-table {
+    width: 100%; // Asegura que la tabla ocupe el ancho del contenedor
+}
+
+mat-paginator {
+    width: 100%; // Asegura que el paginador ocupe el ancho del contenedor
+}
