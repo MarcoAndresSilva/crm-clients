@@ -1,8 +1,10 @@
 <!-- src/app/features/clients/pages/client-form/client-form.component.html -->
 <mat-card>
     <mat-card-header>
-        <mat-card-title>Nuevo Cliente</mat-card-title>
-        <mat-card-subtitle>Complete los datos del nuevo cliente</mat-card-subtitle>
+        <mat-card-title>{{ pageTitle }}</mat-card-title>
+            <mat-card-subtitle>
+            {{ isEditMode ? 'Actualiza los datos del cliente' : 'Complete los datos del nuevo cliente' }}
+            </mat-card-subtitle>
     </mat-card-header>
 
     <mat-card-content>
@@ -55,6 +57,8 @@
 
     <mat-card-actions align="end">
         <button mat-stroked-button (click)="onCancel()">Cancelar</button>
-        <button mat-raised-button color="primary" (click)="onSubmit()" [disabled]="clientForm.invalid">Guardar Cliente</button>
+        <button mat-raised-button color="primary" (click)="onSubmit()" [disabled]="clientForm.invalid || isSubmitting">
+            {{ isSubmitting ? 'Guardando...' : (isEditMode ? 'Actualizar Cliente' : 'Guardar Cliente') }}
+        </button>    
     </mat-card-actions>
 </mat-card>

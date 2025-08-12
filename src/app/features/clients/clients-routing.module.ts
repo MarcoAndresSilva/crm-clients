@@ -9,6 +9,10 @@ const routes: Routes = [
     component: ClientFormComponent 
     },
     { 
+      path: 'edit/:id',
+      component: ClientFormComponent 
+    },
+    { 
       path: '', 
       component: ClientListComponent 
     },
