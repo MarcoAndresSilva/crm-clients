@@ -6,7 +6,6 @@ import { Observable } from 'rxjs';
 
 import { ClientService } from '../../../../core/services/client.service';
 import { Client } from '../../../../core/models/client.model';
-
 @Component({
   selector: 'app-client-form',
   standalone: false,
@@ -21,6 +20,7 @@ export class ClientFormComponent implements OnInit {
   private clientId: string | null = null;
   pageTitle = "Nuevo Cliente";
 
+  // inyectamos fombuilder y router paar crear el formulario y navegar
   constructor(
       private formBuilder: FormBuilder, 
       private router: Router,
@@ -36,76 +36,51 @@ export class ClientFormComponent implements OnInit {
     });    
   }
 
+
   ngOnInit(): void {
-    console.log("--- FORMULARIO INICIADO ---");
-
-    this.clientId = this.route.snapshot.paramMap.get('id');
-    this.isEditMode = !!this.clientId;
+    this.clientId = this.route.snapshot.paramMap.get('id'); // obtenemos el id del cliente
+    this.isEditMode = !!this.clientId; // si el id es null, entonces no estamos en modo edición
     
-    console.log(`ID de la URL: ${this.clientId}`);
-    console.log(`Modo Edición: ${this.isEditMode}`);
-    
-    if (this.isEditMode && this.clientId) {
-      console.log("-> DETECTADO MODO EDICIÓN. Cargando datos...");
+    if(this.isEditMode && this.clientId) {
       this.pageTitle = "Editar Cliente";
-      this.isSubmitting = true; // Mostramos spinner en el botón mientras cargan los datos
-
-      this.clientService.getClientById(this.clientId).subscribe({
+      this.isSubmitting = true;
+      this.clientService.getClientById(this.clientId!).subscribe({
         next: (clientData) => {
-          console.log("-> DATOS RECIBIDOS DE LA API:", clientData);
-          this.clientForm.patchValue(clientData);
-          console.log("-> FORMULARIO RELLENADO. Estado:", this.clientForm.status);
-          this.isSubmitting = false;
+          this.clientForm.patchValue(clientData); // Usamos 'patchValue' para rellenar el formulario con los datos recibidos
+          this.isSubmitting = false; // Dejamos de cargar una vez que el formulario está lleno
         },
         error: (err) => {
-          console.error("-> ERROR al cargar datos del cliente:", err);
           this.snackBar.open('Error al cargar los datos del cliente', 'Cerrar', {
             duration: 5000,
             verticalPosition: 'top',
             panelClass: ['snackbar-error']
           });
           this.isSubmitting = false;
-          this.router.navigate(['/clients']);
+          this.router.navigate(['/clients']); // Si hay error, volvemos a la lista
         }
       });
-    } else {
-      console.log("-> DETECTADO MODO CREACIÓN.");
     }
   }
 
-  onSubmit(): void {
-    console.log("--- SUBMIT PRESIONADO ---");
-    console.log(`Estado del formulario: ${this.clientForm.status}`);
-    console.log(`Valor de isSubmitting: ${this.isSubmitting}`);
-
-    if (this.clientForm.invalid) {
-      console.error("-> SUBMIT DETENIDO: El formulario es inválido.");
-      // Forzamos que se muestren los errores en todos los campos
-      this.clientForm.markAllAsTouched();
-      return;
-    }
-
-    if (this.isSubmitting) {
-      console.warn("-> SUBMIT DETENIDO: Ya hay una operación en curso.");
-      return;
+  onSubmit() {
+    if (this.clientForm.invalid || this.isSubmitting) {
+      return
     }
 
     this.isSubmitting = true;
+
     const clientData = this.clientForm.value;
     let action$: Observable<Client | any>;
 
-    if (this.isEditMode && this.clientId) {
-      console.log("-> EJECUTANDO ACCIÓN: Actualizar Cliente");
+    if(this.isEditMode && this.clientId) {
       action$ = this.clientService.updateClient(this.clientId, clientData);
     } else {
-      console.log("-> EJECUTANDO ACCIÓN: Crear Cliente");
       action$ = this.clientService.addClient(clientData);
     }
 
     action$.subscribe({
       next:() => {
-        console.log("-> ACCIÓN COMPLETADA CON ÉXITO");
-        const message = this.isEditMode ? '¡Cliente actualizado!' : '¡Cliente creado!';
+        const message = this.isEditMode ? '¡Cliente actualizado exitosamente!' : '¡Cliente creado exitosamente!';
         this.snackBar.open(message, 'Cerrar', {
           duration: 3000,
           verticalPosition: 'top',
@@ -116,8 +91,7 @@ export class ClientFormComponent implements OnInit {
         this.router.navigate(['/clients']);
       },
       error: (err) => {
-        console.error("-> ERROR EN LA ACCIÓN:", err);
-        const errorMessage = err.error?.message || 'Ocurrió un error inesperado.';
+        const errorMessage = err.error?.message || (this.isEditMode ? 'Error al actualizar el cliente' : 'Error al crear el cliente');
         this.snackBar.open(errorMessage, 'Cerrar', {
           duration: 5000,
           verticalPosition: 'top',
@@ -128,7 +102,8 @@ export class ClientFormComponent implements OnInit {
     });
   }
 
-  onCancel(): void {
+  onCancel() {
     this.router.navigate(['/clients']);
   }
+
 }
