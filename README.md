@@ -1,6 +1,9 @@
 # CRM-Clients: Aplicación Full Stack de Gestión de Clientes
 
-![CRM-Clients Screenshot](URL_DEL_SCREENSHOT_AQUI)
+<img width="1914" height="401" alt="image" src="https://github.com/user-attachments/assets/0e233b3b-18d4-4f01-ae9a-2bc230ca9685" />
+<img width="1896" height="462" alt="image" src="https://github.com/user-attachments/assets/60266c28-ea81-4607-aef4-3c0cd8d46901" />
+
+
 
 Una aplicación web completa y robusta para la gestión de clientes (CRM), construida con el stack MEAN (MongoDB, Express, Angular, Node.js). Este proyecto fue desarrollado como una pieza central de portafolio para demostrar habilidades en el desarrollo Full Stack, desde la arquitectura del frontend con Angular y `NgModule` hasta la creación de una API RESTful segura con Express y la integración con una base de datos NoSQL.
 
