@@ -1,9 +1,12 @@
 import express, { type Express, type Request, type Response } from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
+
 import connectDB from './config/database';
+
 import clientRoutes from './routes/client.routes';
 import authRoutes from './routes/auth.routes';
+import dashboardRoutes from './routes/dashboard.routes';
 
 
 // Carga las variables de entorno del fichero .env
@@ -23,6 +26,8 @@ app.use('/api/clients', clientRoutes);
 
 // las rutas definidas en 'authRoutes' estarán bajo el prefijo '/api/auth'.
 app.use('/api/auth', authRoutes);
+
+app.use('/api/dashboard', dashboardRoutes);
 
 app.get('/', (req: Request, res: Response) => { // --- Ruta de Prueba ---
     res.send('¡API del CRM funcionando correctamente!');
