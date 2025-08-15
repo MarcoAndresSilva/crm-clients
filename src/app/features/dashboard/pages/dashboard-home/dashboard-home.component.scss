@@ -1,0 +1,72 @@
+/* src/app/features/dashboard/pages/dashboard-home/dashboard-home.component.scss */
+
+.dashboard-grid {
+    display: grid;
+    gap: 20px;
+    grid-template-columns: 1fr; 
+}
+
+// Estilos para todas las tarjetas de estadísticas
+.stat-card {
+    mat-card-header {
+        display: flex;
+        align-items: center;
+    }
+    .stat-icon-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    color: white;
+    width: 60px;
+    height: 60px;
+    margin-right: 16px;
+
+    mat-icon {
+        font-size: 36px;
+        height: 36px;
+        width: 36px;
+        }
+    }
+
+    // Colores para los íconos 
+    .primary {
+        background-color: #673ab7; 
+    }
+    .accent {
+        background-color: #ffd740; 
+        color: rgba(0,0,0,0.87); 
+    }
+
+    mat-list[dense] {
+        padding-top: 0;
+    }
+    
+    .empty-list-message {
+        padding: 16px;
+        color: rgba(0,0,0,0.54);
+        text-align: center;
+    }
+}
+
+.loading-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 400px;
+}
+
+// --- MEDIA QUERY PARA RESPONSIVIDAD ---
+// Cuando la pantalla sea más ancha de 768px...
+@media (min-width: 768px) {
+    .dashboard-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+// Y cuando sea más ancha de 1200px...
+@media (min-width: 1200px) {
+    .dashboard-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}

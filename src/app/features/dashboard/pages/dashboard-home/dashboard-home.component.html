@@ -1,1 +1,52 @@
-<p>dashboard-home works!</p>
+<!-- Contenedor principal del Dashboard con *ngIf/else para el estado de carga -->
+<div *ngIf="stats$ | async as stats; else loading">
+    <h1>Dashboard</h1>
+    
+    <!-- Contenedor de la cuadrícula para las tarjetas -->
+    <div class="dashboard-grid">
+        
+    <!-- TARJETA 1: Clientes Totales -->
+    <mat-card class="stat-card">
+        <mat-card-header>
+            <div mat-card-avatar class="stat-icon-container primary">
+            <mat-icon>people</mat-icon>
+            </div>
+            <mat-card-title>{{ stats.totalClients }}</mat-card-title>
+            <mat-card-subtitle>Clientes Totales</mat-card-subtitle>
+        </mat-card-header>
+        </mat-card>
+
+        <!-- TARJETA 2: Clientes Recientes (Nueva estructura) -->
+        <mat-card class="stat-card">
+        <mat-card-header>
+            <div mat-card-avatar class="stat-icon-container accent">
+            <mat-icon>history</mat-icon>
+            </div>
+            <mat-card-title>Clientes Recientes</mat-card-title>
+            <mat-card-subtitle>Últimos 5 añadidos</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+            <mat-list dense *ngIf="stats.recentClients.length > 0; else noRecent">
+            <mat-list-item *ngFor="let client of stats.recentClients">
+                <mat-icon matListItemIcon>person_outline</mat-icon>
+                <div matListItemTitle>{{ client.name }}</div>
+                <div matListItemLine>{{ client.company }}</div>
+            </mat-list-item>
+            </mat-list>
+            <ng-template #noRecent>
+            <p class="empty-list-message">No hay clientes recientes.</p>
+            </ng-template>
+        </mat-card-content>
+        </mat-card>
+
+        <!-- TODO añadir más tarjetas en el futuro -->
+
+    </div>
+</div>
+
+<!-- Plantilla para el estado de carga -->
+<ng-template #loading>
+    <div class="loading-container">
+        <mat-spinner></mat-spinner>
+    </div>
+</ng-template>
