@@ -18,10 +18,18 @@ const routes: Routes = [
         path: 'clients',
         loadChildren: () => import('./features/clients/clients.module').then(m => m.ClientsModule)
       },
-      { path: '', redirectTo: 'clients', pathMatch: 'full' }
+      {
+        path: 'dashboard',
+        loadChildren: () => import('./features/dashboard/dashboard.module').then(m => m.DashboardModule)
+      },
+      { 
+        path: '', redirectTo: 'dashboard', pathMatch: 'full' 
+      }
     ]
   },
-  { path: '**', redirectTo: '' } // Wildcard
+  { 
+    path: '**', redirectTo: '' 
+  }
 ];
 
 @NgModule({

@@ -5,7 +5,6 @@ import { getClients, createClient, getClientById, updateClient, deleteClient } f
 const router = Router();
 
 // Definimos la ruta y le asignamos el controlador
-
 router.route('/')
     .get(getClients)
     .post(createClient);
