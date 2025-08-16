@@ -7,7 +7,7 @@
 
 Una aplicación web completa y robusta para la gestión de clientes (CRM), construida con el stack MEAN (MongoDB, Express, Angular, Node.js). Este proyecto fue desarrollado como una pieza central de portafolio para demostrar habilidades en el desarrollo Full Stack, desde la arquitectura del frontend con Angular y `NgModule` hasta la creación de una API RESTful segura con Express y la integración con una base de datos NoSQL.
 
-**[➡️ Ver Demo en Vivo](crm-clients-fullstack.netlify.app)** 
+**[➡️ Ver Demo en Vivo](https://crm-clients-fullstack.netlify.app/)** 
 
 ---
 
