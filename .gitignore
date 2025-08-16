@@ -40,3 +40,10 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
+
+# -----------------------------------------------
+# Custom rules for the Express Server subproject
+# -----------------------------------------------
+/server/node_modules
+/server/dist
+/server/.env
