@@ -3,8 +3,6 @@
 <img width="1914" height="401" alt="image" src="https://github.com/user-attachments/assets/0e233b3b-18d4-4f01-ae9a-2bc230ca9685" />
 <img width="1896" height="462" alt="image" src="https://github.com/user-attachments/assets/60266c28-ea81-4607-aef4-3c0cd8d46901" />
 
-
-
 Una aplicación web completa y robusta para la gestión de clientes (CRM), construida con el stack MEAN (MongoDB, Express, Angular, Node.js). Este proyecto fue desarrollado como una pieza central de portafolio para demostrar habilidades en el desarrollo Full Stack, desde la arquitectura del frontend con Angular y `NgModule` hasta la creación de una API RESTful segura con Express y la integración con una base de datos NoSQL.
 
 **[➡️ Ver Demo en Vivo](https://crm-clients-fullstack.netlify.app/)** 
@@ -20,6 +18,14 @@ Una aplicación web completa y robusta para la gestión de clientes (CRM), const
 -   **Dashboard de Métricas:** Una página principal que muestra estadísticas clave, como el número total de clientes y los más recientes.
 -   **Experiencia de Usuario Mejorada:** La interfaz incluye indicadores de carga (spinners), notificaciones (snackbars) para acciones y diálogos de confirmación para operaciones destructivas.
 -   **Diseño Responsivo:** La aplicación está diseñada para ser completamente funcional y visualmente atractiva en dispositivos de escritorio y móviles.
+
+---
+
+## 🏛️ Arquitectura y Decisiones de Diseño
+
+Este proyecto fue construido con un fuerte enfoque en las buenas prácticas de arquitectura y código limpio. Para un desglose detallado del proceso de desarrollo, las decisiones técnicas clave, los desafíos encontrados y las soluciones implementadas, por favor consulta el siguiente documento:
+
+### **[📄 Leer el Documento de Arquitectura](./ARCHITECTURE.md)**
 
 ---
 
@@ -69,52 +75,4 @@ Esta sección detalla las tecnologías, librerías y herramientas utilizadas en 
 
 ## ⚙️ Instalación y Ejecución Local
 
-Para clonar y ejecutar este proyecto en tu máquina local, sigue estos pasos:
-
-### **Prerrequisitos**
-
--   [Node.js](https://nodejs.org/) (versión 18.x o superior)
--   [Angular CLI](https://angular.io/cli) (versión 17.x o superior)
--   Una cuenta de [MongoDB Atlas](https://www.mongodb.com/cloud/atlas) para la base de datos.
-
-### **Pasos**
-
-1.  **Clona el repositorio:**
-    ```bash
-    git clone https://github.com/TU_USUARIO/crm-clients.git
-    cd crm-clients
-    ```
-
-2.  **Configura el Backend:**
-    -   Navega a la carpeta del servidor: `cd server`
-    -   Instala las dependencias: `npm install`
-    -   Crea un fichero `.env` en la raíz de la carpeta `server` y añade las siguientes variables:
-        ```env
-        MONGO_URI=TU_CADENA_DE_CONEXION_DE_MONGODB_ATLAS
-        JWT_SECRET=UNA_CLAVE_SECRETA_LARGA_Y_ALEATORIA
-        ```
-    -   Inicia el servidor de backend (se ejecutará en `http://localhost:3000`):
-        ```bash
-        npm run dev
-        ```
-
-3.  **Configura el Frontend:**
-    -   Abre una **nueva terminal** en la raíz del proyecto (`crm-clients`).
-    -   Instala las dependencias: `npm install`
-    -   Inicia la aplicación de Angular (se ejecutará en `http://localhost:4200`):
-        ```bash
-        ng serve
-        ```
-
-4.  **¡Listo!** Abre tu navegador y ve a `http://localhost:4200`.
-
----
-
-## 📝 Próximos Pasos
-
-Aunque el proyecto está completo en sus funcionalidades principales, hay varias mejoras que podrían implementarse en el futuro:
-
--   [ ] Búsqueda y filtrado en la lista de clientes.
--   [ ] Roles de usuario (ej. Admin vs. Usuario normal).
--   [ ] Añadir un modelo de "Interacciones" para registrar notas por cliente.
--   [ ] Subida de archivos (ej. foto de perfil del cliente).
+Para clonar y ejecutar este proyecto en tu máquina local,
