@@ -76,4 +76,4 @@ Esta sección detalla las tecnologías, librerías y herramientas utilizadas en 
 
 ## ⚙️ Instalación y Ejecución Local
 
-Para clonar y ejecutar este proyecto en tu máquina local.
+Para clonar y ejecutar este proyecto en tu máquina local. (pronto)
