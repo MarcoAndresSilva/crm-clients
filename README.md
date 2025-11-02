@@ -1,4 +1,4 @@
-# CRM-Clients: Aplicación Full Stack Gestión Clientes
+# CRM-Clients: Aplicación Full Stack para la Gestión Clientes
 
 <img width="1914" height="401" alt="image" src="https://github.com/user-attachments/assets/0e233b3b-18d4-4f01-ae9a-2bc230ca9685" />
 <img width="1896" height="462" alt="image" src="https://github.com/user-attachments/assets/60266c28-ea81-4607-aef4-3c0cd8d46901" />
